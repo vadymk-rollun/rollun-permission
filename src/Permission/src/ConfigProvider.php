@@ -52,6 +52,7 @@ use Zend\Expressive\Authentication\UserRepositoryInterface;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Permissions\Acl\Acl;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Psr\Log\LoggerInterface;
 
 /**
  * This config providers contain basic rollun-permission configuration
@@ -171,7 +172,8 @@ class ConfigProvider
                         $userRoleDataStore,
                         $roleDataStore,
                         $userFactory,
-                        $config
+                        $config,
+                        $container->get(LoggerInterface::class)
                     );
                 },
                 GuestAuthentication::class => GuestAuthenticationFactory::class,
