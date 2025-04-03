@@ -73,12 +73,14 @@ class UserRepository implements UserRepositoryInterface
         DataStoresInterface $userRoles,
         DataStoresInterface $roles,
         callable $userFactory,
-        $config = null
+        $config = null,
+        $logger
     ) {
         $this->users = $users;
         $this->userRoles = $userRoles;
         $this->roles = $roles;
         $this->setConfigs($config);
+        $this->logger = $logger;
 
         // Provide type safety for the composed user factory.
         $this->userFactory = function (
@@ -109,6 +111,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function authenticate(string $credential, string $password = null): ?UserInterface
     {
+        $this->logger->info('Authentication started', ['credential' => $credential]);
         $user = $this->users->read($credential);
 
         if ($user) {

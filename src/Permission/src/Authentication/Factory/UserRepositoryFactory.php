@@ -11,6 +11,7 @@ use Psr\Container\ContainerInterface;
 use rollun\permission\Authentication\UserRepository;
 use Zend\Expressive\Authentication\DefaultUser;
 use Zend\Expressive\Authentication\UserInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Create instance of DataStore (user repository) using 'config' service of $container
@@ -87,7 +88,8 @@ class UserRepositoryFactory
             $userRoleDataStore,
             $roleDataStore,
             $userFactory,
-            $config
+            $config,
+            $container->get(LoggerInterface::class)
         );
     }
 }
